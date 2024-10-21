@@ -52,18 +52,11 @@
             <div class="flex items-center gap-2 group">
               <ChevronRight class="h-4 w-4 text-orange-500 transform group-hover:translate-x-1 transition-transform" />
               <span class="relative inline-block">
-                <span class="text-orange-500">Inteligencia artificial avanzada</span>
+                <span class="text-orange-500">Automatizaciones de procesos</span>
                 <span class="absolute -bottom-1 left-0 w-full h-0.5 bg-orange-500/20"></span>
               </span>
-            </div>
+            </div>            
             
-            <div class="flex items-center gap-2 group">
-              <ChevronRight class="h-4 w-4 text-orange-500 transform group-hover:translate-x-1 transition-transform" />
-              <span class="relative inline-block">
-                <span class="text-orange-500">Seguridad y optimización de sistemas</span>
-                <span class="absolute -bottom-1 left-0 w-full h-0.5 bg-orange-500/20"></span>
-              </span>
-            </div>
           </div>
   
           <!-- Bottom Classification -->

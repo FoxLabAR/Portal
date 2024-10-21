@@ -6,6 +6,8 @@ import About from '../components/FoxLabAbout.vue';
 import Team from '../components/FoxLabTeam.vue';
 import Header from '../components/FoxLabHeader.vue';
 import Mission from '../components/FoxLabMission.vue';
+import Contact from '../components/FoxLabContact.vue';
+import Footer from '../components/FoxLabFooter.vue';
 ---
 
 <Layout title="Welcome to Astro.">
@@ -14,8 +16,10 @@ import Mission from '../components/FoxLabMission.vue';
 		<Services />
 		<About id="intel"/>
 		<Team id="operatives"/>
-		<Stats />
 		<Mission id="missions"/>
+		<Stats />
+		<Contact id="contact" client:load />
+		<Footer />
 	</main>
 </Layout>
 
