@@ -1,17 +1,21 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Hero from '../components/Hero.astro';
-import Services from '../components/Services.vue';
-import Stats from '../components/Stats.vue';
-import About from '../components/About.vue';
+import Services from '../components/FoxLabServices.vue';
+import Stats from '../components/FoxLabStats.vue';
+import About from '../components/FoxLabAbout.vue';
+import Team from '../components/FoxLabTeam.vue';
+import Header from '../components/FoxLabHeader.vue';
+import Mission from '../components/FoxLabMission.vue';
 ---
 
 <Layout title="Welcome to Astro.">
 	<main>
-		<Hero />
+		<Header />
 		<Services />
-		<About />
+		<About id="intel"/>
+		<Team id="operatives"/>
 		<Stats />
+		<Mission id="missions"/>
 	</main>
 </Layout>
 

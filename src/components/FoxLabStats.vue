@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto px-4 py-3">
+  <div class="container mx-auto px-4 py-20">
 
     <!-- Stats Section -->
     <div class="mt-20 grid grid-cols-3 gap-8 font-mono">
@@ -20,15 +20,15 @@ export default {
       stats: [
         {
           value: '5+',
-          label: 'Years Active'
+          label: 'Años Activos'
         },
         {
-          value: '20+',
-          label: 'Operations Complete'
+          value: '10+',
+          label: 'Sitio Web Completos'
         },
         {
           value: '15+',
-          label: 'Elite Operatives'
+          label: 'Analisis Concretados'
         }
       ]
     }
