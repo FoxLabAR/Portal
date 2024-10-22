@@ -115,7 +115,29 @@
       const teamMembers = [
         {
           id: 1,
-          name: "Nikolas Barroso",
+          name: "CYNTHIA MILOSZ",
+          codename: "FUR_SEAL",
+          image:"Cynthia.png",
+          role: "Data Scientist / Marketing Specialist",
+          stats: [
+            { name: "SKILL", value: 92 },
+            { name: "EXP", value: 82 },
+            { name: "TECH", value: 88 }
+          ],
+          skills: [
+            { name: "AI", icon: "Brain", active: true },
+            { name: "Data", icon: "Database", active: true },
+            { name: "Python", icon: "Code", active: true },
+            { name: "Cloud", icon: "Globe", active: true },
+            { name: "ML", icon: "Bot", active: true },
+            { name: "Backend", icon: "Server", active: false },
+            { name: "Analysis", icon: "Terminal", active: true }
+          ],
+          description: "Experto en ciencia de datos y machine learning, especializado en análisis predictivo y modelos de IA."
+        },
+        {
+          id: 2,
+          name: "NIKOLAS BARROSO",
           codename: "PHANTOM_CODER",
           image:"Nikolas.png",
           role: "Frontend Developer",
@@ -136,11 +158,11 @@
           description: "Especialista en desarrollo full stack con énfasis en arquitectura de sistemas y optimización de rendimiento."
         },
         {
-          id: 2,
-          name: "Fernando Barroso",
-          codename: "CYBER_SENTINEL",
-          image:"Fernando.png",
-          role: "Data Scientist / Intel Specialist",
+          id: 3,
+          name: "GABRIEL VALDEZ",
+          codename: "BOBWHITE",
+          image:"Gabriel.png",
+          role: "Data Engineer",
           stats: [
             { name: "SKILL", value: 92 },
             { name: "EXP", value: 82 },
@@ -156,10 +178,9 @@
             { name: "Analysis", icon: "Terminal", active: true }
           ],
           description: "Experto en ciencia de datos y machine learning, especializado en análisis predictivo y modelos de IA."
-        },
-        {
-          id: 3,
-          name: "Kevin Barroso",
+        },{
+          id: 4,
+          name: "KEVIN BARROSO",
           codename: "CYBER_SENTINEL",
           image:"Kevin.png",
           role: "Cloud Arq / Intel Specialist",
@@ -179,6 +200,29 @@
           ],
           description: "Experto en ciencia de datos y machine learning, especializado en análisis predictivo y modelos de IA."
         },
+        {
+          id: 5,
+          name: "FERNANDO BARROSO",
+          codename: "CYBER_SENTINEL",
+          image:"Fernando.png",
+          role: "Data Scientist / Fullstack / Analysis",
+          stats: [
+            { name: "SKILL", value: 92 },
+            { name: "EXP", value: 82 },
+            { name: "TECH", value: 88 }
+          ],
+          skills: [
+            { name: "AI", icon: "Brain", active: true },
+            { name: "Data", icon: "Database", active: true },
+            { name: "Python", icon: "Code", active: true },
+            { name: "Cloud", icon: "Globe", active: true },
+            { name: "ML", icon: "Bot", active: true },
+            { name: "Backend", icon: "Server", active: false },
+            { name: "Analysis", icon: "Terminal", active: true }
+          ],
+          description: "Experto en ciencia de datos y machine learning, especializado en análisis predictivo y modelos de IA."
+        },
+        
         // Puedes agregar más miembros aquí...
       ]
   

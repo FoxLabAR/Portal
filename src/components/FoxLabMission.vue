@@ -10,8 +10,7 @@
             <Map class="text-orange-500 h-8 w-8" />
             <span class="text-orange-500">FOX</span>LAB_MISSIONS
           </h2>
-        </div>
-  
+        </div>  
         <!-- Team Grid -->
       </div>
     </div>
@@ -29,9 +28,6 @@
     Bot,
     Brain
   } from 'lucide-vue-next'
-  import { MisionDetail } from './MissionDetails.vue';
-  import { MissionHeader } from './MissionHeader.vue';
-  import { ProjectMap } from './ProjectMap.vue';
   
   export default {
     name: 'FoxLabMission',

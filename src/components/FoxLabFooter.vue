@@ -5,7 +5,7 @@
         <!-- Top Section -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           <div class="space-y-4">
-            <h3 class="text-orange-500 font-mono text-lg">[FOX-LAB]_</h3>
+            <h3 class="text-orange-500 font-mono text-lg">[FOXLAB]</h3>
             <p class="text-gray-400 font-mono text-sm">
               TACTICAL DEVELOPMENT UNIT
               <br />
@@ -25,7 +25,11 @@
           <div class="space-y-4">
             <h4 class="text-orange-500 font-mono text-sm">CONTACT_FREQUENCY</h4>
             <ul class="space-y-2">
-              <li class="text-gray-400 font-mono text-sm">[ENCRYPTED_CHANNEL]</li>
+              <li class="text-gray-400 font-mono text-sm">
+                <a href="mailto:barroso.ouharriet@gmail.com">
+                  [ENCRYPTED_CHANNEL]
+                </a>
+              </li>
               <li class="text-gray-400 font-mono text-sm">FREQUENCY: 140.85</li>
             </ul>
           </div>
