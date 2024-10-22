@@ -88,7 +88,8 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+// Importamos Vue y los componentes necesarios
+import { ref, onMounted } from 'vue'  // Añadimos onMounted aquí
 import { ChevronRight, Monitor, Database, Radio } from 'lucide-vue-next'
 
 export default {
@@ -144,8 +145,15 @@ export default {
     }
 
     const selectMission = (mission) => {
+      console.log('Mission selected:', mission)
       selectedMission.value = mission
     }
+
+    onMounted(() => {
+      console.log('Component mounted')
+      // Seleccionar la primera misión por defecto si quieres
+      // selectedMission.value = missions.value[0]
+    })
 
     return {
       selectedMission,
@@ -158,7 +166,6 @@ export default {
 </script>
 
 <style scoped>
-/* Cursor blink animation */
 @keyframes cursor-blink {
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
@@ -166,11 +173,5 @@ export default {
 
 .animate-pulse {
   animation: cursor-blink 1.5s steps(2) infinite;
-}
-
-/* Hover effects */
-.mission-item:hover {
-  color: rgba(249, 115, 22, 0.6);
-  transition: color 0.3s ease;
 }
 </style>

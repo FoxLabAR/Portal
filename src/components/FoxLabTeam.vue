@@ -30,7 +30,7 @@
             ]">
               
               <!-- Basic Info (Always Visible) -->
-              <div class="p-4 bg-zinc-800/50">
+              <div class="p-4 ">
                 <div class="flex items-center gap-4">
                   <div class="w-16 h-16 rounded-lg overflow-hidden border-2 border-orange-500/20">
                     <img :src="`/`+member.image" :alt="member.name" class="w-full h-full object-cover" />
