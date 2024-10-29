@@ -191,51 +191,22 @@ const startCountdown = () => {
   }, 1000);
 };
 
-
 const handleSubmit = async () => {
   isSubmitting.value = true;
-  
   try {
-    // Replace with your deployed Google Apps Script URL
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbzu6RkbOd-xIIBLafHC4dXKnxOUZ5nv4OL7dJJZYlpzN_I7V6TXysV9JN4zkmXWcU8Xpw/exec';
-    
-    // Create a traditional form submission
-    const form = document.createElement('form');
-    form.method = 'POST';
-    form.action = scriptURL;
-    
-    // Add the form data
-    const formFields = {
-      codename: formData.codename,
-      email: formData.email,
-      message: formData.message
-    };
-    
-    // Create hidden inputs for each field
-    Object.keys(formFields).forEach(key => {
-      const input = document.createElement('input');
-      input.type = 'hidden';
-      input.name = key;
-      input.value = formFields[key];
-      form.appendChild(input);
-    });
-    
-    // Submit using fetch
-    const response = await fetch(scriptURL, {
+    // Enviar datos a Google Sheets
+    const response = await fetch('https://script.google.com/macros/s/AKfycbzu6RkbOd-xIIBLafHC4dXKnxOUZ5nv4OL7dJJZYlpzN_I7V6TXysV9JN4zkmXWcU8Xpw/exec', {
       method: 'POST',
+      body: JSON.stringify(formData),
       mode: 'no-cors',
-      body: new URLSearchParams(formFields)
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
-
-    // Since we're using no-cors, we can't actually read the response
-    // So we'll assume success if we get here
+    
     isHacking.value = true;
     isHacked.value = false;
     startEncryption();
-    
-  } catch (error) {
-    console.error('Error!', error.message);
-    // Implement your error handling here
   } finally {
     isSubmitting.value = false;
   }
