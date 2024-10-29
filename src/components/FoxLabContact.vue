@@ -84,19 +84,16 @@
       </div>
 
       <!-- Locked State -->
-      <div v-if="isLocked" class="space-y-6 animate-glitch">
+      <div v-if="isLocked" class="space-y-6">
         <div class="border-2 border-red-500 p-8 bg-black text-center space-y-6">
-          <div class="text-red-500 font-mono text-2xl glitch">
+          <div class="text-red-500 font-mono text-2xl">
             [TERMINAL_LOCKED]
           </div>
-          <div class="text-red-500 font-mono text-xl typing-text-fast">
+          <div class="text-red-500 font-mono text-xl">
             MESSAGE RECEIVED...
           </div>
-          <div class="text-green-500 font-mono text-xl mt-8">
-            WE WILL FIND YOU
-          </div>
           <div class="flex justify-center mt-4">
-            <img src="/fox-LAB-logo.svg" alt="FOXLAB" class="w-24 h-24 animate-pulse" />
+            <img src="logo_foxlab.svg" alt="FOXLAB" class="w-24 h-24 animate-pulse" />
           </div>
           <div class="text-orange-500 font-mono text-sm mt-4 typing-text-fast">
             TERMINAL WILL SELF-DESTRUCT IN {{ countdown }} SECONDS
@@ -130,7 +127,6 @@ const formData = reactive({
 
 const hackingLines = [
   "INITIATING FOXLAB SECURE CONNECTION...",
-  "BYPASSING PROXY FIREWALLS...",
   "ACCESSING SECURE NETWORK...",
   "ESTABLISHING ENCRYPTED CHANNEL...",
   "VERIFYING FOXLAB CLEARANCE...",
@@ -141,7 +137,6 @@ const encryptionLines = [
   "MESSAGE INTERCEPTED",
   "INITIATING CODEC ENCRYPTION",
   "ACTIVATING STEALTH PROTOCOLS",
-  "ENGAGING METAL GEAR CONTINGENCY",
   "TERMINAL COMPROMISED",
 ];
 
@@ -196,14 +191,51 @@ const startCountdown = () => {
   }, 1000);
 };
 
+
 const handleSubmit = async () => {
   isSubmitting.value = true;
+  
   try {
+    // Replace with your deployed Google Apps Script URL
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzu6RkbOd-xIIBLafHC4dXKnxOUZ5nv4OL7dJJZYlpzN_I7V6TXysV9JN4zkmXWcU8Xpw/exec';
+    
+    // Create a traditional form submission
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = scriptURL;
+    
+    // Add the form data
+    const formFields = {
+      codename: formData.codename,
+      email: formData.email,
+      message: formData.message
+    };
+    
+    // Create hidden inputs for each field
+    Object.keys(formFields).forEach(key => {
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = key;
+      input.value = formFields[key];
+      form.appendChild(input);
+    });
+    
+    // Submit using fetch
+    const response = await fetch(scriptURL, {
+      method: 'POST',
+      mode: 'no-cors',
+      body: new URLSearchParams(formFields)
+    });
+
+    // Since we're using no-cors, we can't actually read the response
+    // So we'll assume success if we get here
     isHacking.value = true;
     isHacked.value = false;
     startEncryption();
+    
   } catch (error) {
-    console.error('Error sending message:', error);
+    console.error('Error!', error.message);
+    // Implement your error handling here
   } finally {
     isSubmitting.value = false;
   }

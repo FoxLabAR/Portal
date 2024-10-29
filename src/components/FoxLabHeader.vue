@@ -14,7 +14,7 @@
         <!-- Decorative Elements -->
         <div class="absolute -left-4 top-0 bottom-0 border-l-2 border-orange-500/20"></div>
         <div class="absolute -top-2 -left-4 pl-8 text-orange-500/20 text-xs">
-          [INNOVATION_PORTFOLIO]
+          [CLASSIFIED_DOC_0723]
         </div>
 
         <!-- Main Value Proposition -->
@@ -58,9 +58,9 @@
 
         <!-- Professional Footer -->
         <div class="mt-6 pl-4 flex items-center gap-4 text-xs text-orange-500/40">
-          <span>[EXCELLENCE_IN_TECH]</span>
+          <span>[CLEARANCE_LEVEL: TOP_SECRET]</span>
           <span class="h-px w-8 bg-orange-500/20"></span>
-          <span>[INNOVATION_DRIVEN]</span>
+          <span>[ACCESS_RESTRICTED]</span>
         </div>
       </div>
     </div>

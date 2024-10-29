@@ -143,10 +143,10 @@
           </div>
         </div>
 
-        <!-- Enhanced Image Display -->
+        <!-- Enhanced Image Display with Links -->
         <div class="col-span-1">
           <div class="sticky top-8">
-            <div class="relative w-full aspect-[4/3] rounded-lg overflow-hidden border-2 border-orange-500/20">
+            <div class="relative w-full aspect-[4/3] rounded-lg overflow-hidden border-2 border-orange-500/20 mb-4">
               <template v-if="selectedMission && selectedMission.image">
                 <img
                   :src="selectedMission.image"
@@ -162,6 +162,55 @@
                   </div>
                   <div class="text-orange-500/40 font-mono text-sm">
                     Contact for access
+                  </div>
+                </div>
+              </template>
+            </div>
+
+            <!-- Project Links -->
+            <div class="grid grid-cols-2 gap-4" v-if="selectedMission">
+              <!-- Repository Button -->
+              <template v-if="selectedMission.repository">
+                <a
+                  :href="selectedMission.repository"
+                  target="_blank"
+                  class="flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-orange-500/10 text-orange-500 hover:bg-orange-500/20 transition-colors"
+                >
+                  <Github class="h-5 w-5" />
+                  <span class="text-sm font-medium">Repository</span>
+                </a>
+              </template>
+              <template v-else>
+                <div class="flex flex-col items-center justify-center px-4 py-3 rounded-lg bg-orange-500/5 border border-orange-500/20">
+                  <div class="flex items-center gap-2 text-orange-500/20">
+                    <Lock class="h-4 w-4" />
+                    <span class="text-xs font-mono">CLASSIFIED</span>
+                  </div>
+                  <div class="text-orange-500/40 font-mono text-xs mt-1">
+                    Private Repository
+                  </div>
+                </div>
+              </template>
+
+              <!-- Demo Button -->
+              <template v-if="selectedMission.demo">
+                <a
+                  :href="selectedMission.demo"
+                  target="_blank"
+                  class="flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-orange-500/10 text-orange-500 hover:bg-orange-500/20 transition-colors"
+                >
+                  <ExternalLink class="h-5 w-5" />
+                  <span class="text-sm font-medium">Live Demo</span>
+                </a>
+              </template>
+              <template v-else>
+                <div class="flex flex-col items-center justify-center px-4 py-3 rounded-lg bg-orange-500/5 border border-orange-500/20">
+                  <div class="flex items-center gap-2 text-orange-500/20">
+                    <Lock class="h-4 w-4" />
+                    <span class="text-xs font-mono">CLASSIFIED</span>
+                  </div>
+                  <div class="text-orange-500/40 font-mono text-xs mt-1">
+                    Private Access
                   </div>
                 </div>
               </template>
@@ -186,7 +235,9 @@ import {
   Target,
   FolderOpen,
   Image,
-  Lock
+  Lock,
+  Github,
+  ExternalLink
 } from 'lucide-vue-next'
 
 export default {
@@ -202,7 +253,9 @@ export default {
     Target,
     FolderOpen,
     Image,
-    Lock
+    Lock,
+    Github,
+    ExternalLink
   },
   setup() {
     const selectedMission = ref(null)
@@ -211,6 +264,7 @@ export default {
         id: 'MSN_003',
         title: 'Ferreteando - Ordenando tus ventas en dos clicks',
         type: 'APP',
+        image: "628_1x_shots_so.webp",
         description: 'Simplifica la gestión de ventas y presupuestos en ferreterías y pequeños comercios, permitiendo actualizar precios en tiempo real y generar presupuestos rápidamente.',
         objectives: [
           'Actualización de precios en tiempo real',
@@ -220,26 +274,32 @@ export default {
         ],
         skills: ['HTML', 'CSS', 'Vuetify', 'Vue', 'Python'],
         status: 'COMPLETED',
-        elapsedTime: '1400:00'
+        elapsedTime: '1400:00',
+        repository: null,
+        demo: null
       },
       {
         id: 'MSN_004',
         title: 'PoroIA - ML para League of Legends',
         type: 'DATA',
+        image: "LoL.webp",
         description: 'Análisis de partidas clasificatorias de League of Legends en nivel Diamante, enfocándose en los primeros 10 minutos de juego.',
         objectives: [
           'Análisis de 10,000 partidas de alto nivel',
           'Optimización de rendimiento y estrategias',
           'Visualización de datos con Plotly'
         ],
-        skills: ['Python', 'Plotly'],
+        skills: ['Python', 'Plotly', 'ML'],
         status: 'COMPLETED',
-        elapsedTime: '960:00'
+        elapsedTime: '960:00',
+        repository: 'https://github.com/Ferjapolis/Coderhouser-DS-TP0002',
+        demo: 'https://ferjapolis.github.io/Coderhouser-DS-TP0002/Resumen.html'
       },
       {
         id: 'MSN_005',
         title: 'Sistema de Vivero Automatizado con Raspberry Pi',
         type: 'APP',
+        image: "342shots_so.webp",
         description: 'Automatización del riego y monitoreo de un vivero con sensores de humedad, temperatura, presión y pH, gestionado desde una web en Flask.',
         objectives: [
           'Automatización del riego',
@@ -249,7 +309,9 @@ export default {
         ],
         skills: ['Python', 'Plotly', 'RPIO'],
         status: 'COMPLETED',
-        elapsedTime: '1280:00'
+        elapsedTime: '1280:00',
+        repository: null,
+        demo: null
       },
       {
         id: 'MSN_006',
@@ -263,7 +325,9 @@ export default {
         ],
         skills: ['Python'],
         status: 'COMPLETED',
-        elapsedTime: '480:00'
+        elapsedTime: '0080:00',
+        repository: 'https://github.com/Ferjapolis/Metadata_creator',
+        demo: null
       }
     ])
 

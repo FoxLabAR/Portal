@@ -97,16 +97,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-.backdrop-blur-sm {
-    backdrop-filter: blur(8px);
-    transition: all 0.3s ease;
-}
-
-.backdrop-blur-sm:hover {
-    border-color: rgba(249, 115, 22, 0.4);
-    box-shadow: 0 0 15px rgba(249, 115, 22, 0.1);
-    transform: translateY(-2px);
-}
-</style>
