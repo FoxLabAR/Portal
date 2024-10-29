@@ -22,10 +22,15 @@ const { title } = Astro.props;
       <nav
         class="p-4 flex justify-between items-center border-b border-orange-500/20"
       >
-        <div class="flex items-center gap-2">
-          <span class="text-orange-500 font-mono">[FOX-LAB]</span>
-          <div class="h-2 w-2 bg-orange-500 animate-pulse rounded-full"></div>
-        </div>
+      <div class="hidden md:grid md:grid-cols-2 lg:grid-cols-5">
+      <div class="flex items-center gap-2">
+        <span class="text-orange-500 font-mono">[FOX-LAB]</span>
+        <div class="h-2 w-2 bg-orange-500 animate-pulse rounded-full"></div>
+      </div>
+    </div>
+      <div class="md:hidden relative">
+        <img src="logo_foxlab.svg" alt="FOXLAB" class="w-10 h-10" />
+      </div>
         <div class="flex gap-6 font-mono text-sm">
           <a href="#intel" class="hover:text-orange-500 transition-colors">INTEL</a>
           <a href="#missions" class="hover:text-orange-500 transition-colors">PROJECTS</a>
