@@ -7,7 +7,7 @@
             </div>
             <h2 class="text-4xl font-bold mb-4 flex items-center gap-3">
                 <Shield class="text-orange-500 h-8 w-8" />
-                <span class="text-orange-500">FOX</span>LAB_INTEL
+                <span class="text-orange-500">FOX</span>LAB_PROFILE
             </h2>
         </div>
 
@@ -16,16 +16,15 @@
             <div class="border border-orange-500/20 p-6 rounded-lg backdrop-blur-sm">
                 <h3 class="font-mono text-2xl mb-4 text-orange-500 flex items-center gap-2">
                     <Users class="h-6 w-6" />
-                    QUIÉNES SOMOS
+                    NUESTRA IDENTIDAD
                 </h3>
                 <div class="space-y-4 text-gray-300">
-                    <p>Somos FoxLab, un equipo de desarrolladores freelance unidos por una pasión compartida: la
-                        tecnología, el conocimiento y nuestra admiración por Metal Gear. Al igual que el legendario
-                        equipo FOXHOUND, nos caracteriza la combinación de habilidades diversas y especializadas, que
-                        aplicamos estratégicamente para superar cualquier reto.</p>
-                    <p class="border-l-2 border-orange-500/20 pl-4">Nuestra historia comienza como una comunidad de
-                        profesionales deseosos de compartir conocimientos y facilitar el camino a quienes quieren
-                        adentrarse en el vasto mundo de la programación.</p>
+                    <p>Somos un equipo de profesionales tecnológicos que combina experiencia en desarrollo Fullstack, 
+                    Inteligencia de Datos y Automatización de Procesos. Nos distinguimos por nuestra capacidad de abordar 
+                    proyectos complejos con soluciones innovadoras y eficientes.</p>
+                    <p class="border-l-2 border-orange-500/20 pl-4">Fundada por expertos en tecnología con más de una década 
+                    de experiencia en el sector, FoxLab surge como respuesta a la creciente necesidad de soluciones 
+                    tecnológicas integrales y personalizadas en el mercado empresarial.</p>
                 </div>
             </div>
 
@@ -37,20 +36,20 @@
                         MISIÓN
                     </h3>
                     <div class="text-gray-300">
-                        <p>En FoxLab, nuestra misión es transformar las ideas en realidades digitales que no solo
-                            solucionen problemas, sino que impulsen a nuestros clientes a alcanzar nuevas metas.</p>
+                        <p>Potenciar la transformación digital de nuestros clientes mediante soluciones tecnológicas 
+                        innovadoras y servicios de consultoría estratégica que generen valor medible y sostenible.</p>
                         <ul class="mt-4 space-y-2">
                             <li class="flex items-start gap-2">
                                 <ChevronRight class="h-4 w-4 text-orange-500 mt-1 flex-shrink-0" />
-                                <span>Desarrollo de soluciones innovadoras</span>
+                                <span>Desarrollo de soluciones empresariales escalables</span>
                             </li>
                             <li class="flex items-start gap-2">
                                 <ChevronRight class="h-4 w-4 text-orange-500 mt-1 flex-shrink-0" />
-                                <span>Compromiso con la educación en programación</span>
+                                <span>Implementación de arquitecturas de datos avanzadas</span>
                             </li>
                             <li class="flex items-start gap-2">
                                 <ChevronRight class="h-4 w-4 text-orange-500 mt-1 flex-shrink-0" />
-                                <span>Soluciones personalizadas de alto impacto</span>
+                                <span>Optimización continua de procesos empresariales</span>
                             </li>
                         </ul>
                     </div>
@@ -63,18 +62,18 @@
                         VISIÓN
                     </h3>
                     <div class="text-gray-300">
-                        <p>Ser reconocidos como un equipo de desarrollo de élite, que no solo resuelve desafíos
-                            tecnológicos, sino que deja una huella en cada proyecto en el que participa.</p>
+                        <p>Establecernos como referente en innovación tecnológica y excelencia en el desarrollo de 
+                        soluciones digitales, siendo el socio estratégico preferido para la transformación digital 
+                        empresarial.</p>
                         <div class="mt-4 border-t border-orange-500/20 pt-4 font-mono text-sm">
                             <div class="flex items-center gap-2">
-                                <span class="text-orange-500">[OBJETIVO_01]</span> Referencia en soluciones tecnológicas
+                                <span class="text-orange-500">[OBJETIVO_01]</span> Liderazgo en innovación tecnológica
                             </div>
                             <div class="flex items-center gap-2">
-                                <span class="text-orange-500">[OBJETIVO_02]</span> Inspiración para futuros
-                                desarrolladores
+                                <span class="text-orange-500">[OBJETIVO_02]</span> Expansión global de servicios
                             </div>
                             <div class="flex items-center gap-2">
-                                <span class="text-orange-500">[OBJETIVO_03]</span> Excelencia en cada proyecto
+                                <span class="text-orange-500">[OBJETIVO_03]</span> Excelencia operativa continua
                             </div>
                         </div>
                     </div>
@@ -108,5 +107,6 @@ export default {
 .backdrop-blur-sm:hover {
     border-color: rgba(249, 115, 22, 0.4);
     box-shadow: 0 0 15px rgba(249, 115, 22, 0.1);
+    transform: translateY(-2px);
 }
 </style>

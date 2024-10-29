@@ -162,7 +162,7 @@
           name: "GABRIEL VALDEZ",
           codename: "BOBWHITE",
           image:"Gabriel.png",
-          role: "Data Engineer",
+          role: "Data Analytics",
           stats: [
             { name: "SKILL", value: 92 },
             { name: "EXP", value: 82 },
