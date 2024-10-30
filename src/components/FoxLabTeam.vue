@@ -48,56 +48,57 @@
         <!-- Navigation Buttons -->
         <button 
           @click="scrollToPrev"
-          class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 bg-zinc-800/80 p-2 rounded-full text-orange-500 hover:bg-zinc-700/80 transition-colors"
+          class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 bg-zinc-800/80 p-2 rounded-full text-orange-500 hover:bg-zinc-700/80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           :disabled="currentIndex === 0"
-          :class="{ 'opacity-50 cursor-not-allowed': currentIndex === 0 }"
         >
           <ChevronLeft class="h-6 w-6" />
         </button>
         
         <button 
           @click="scrollToNext"
-          class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 bg-zinc-800/80 p-2 rounded-full text-orange-500 hover:bg-zinc-700/80 transition-colors"
+          class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 bg-zinc-800/80 p-2 rounded-full text-orange-500 hover:bg-zinc-700/80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           :disabled="currentIndex === teamMembers.length - 1"
-          :class="{ 'opacity-50 cursor-not-allowed': currentIndex === teamMembers.length - 1 }"
         >
           <ChevronRight class="h-6 w-6" />
         </button>
 
         <!-- Carousel -->
-        <div 
-          ref="carouselRef"
-          class="flex overflow-x-hidden snap-x snap-mandatory scroll-smooth"
-        >
+        <div class="relative overflow-hidden">
           <div 
-            v-for="member in teamMembers"
-            :key="member.id"
-            class="min-w-full snap-center px-4"
+            ref="carouselRef"
+            class="flex transition-transform duration-300 ease-in-out"
+            :style="{ transform: `translateX(-${currentIndex * 100}%)` }"
           >
-            <div class="border border-orange-500/20 rounded-lg overflow-hidden backdrop-blur-sm hover:border-orange-500/40 transition-all duration-300">
-              <div class="p-6">
-                <div class="flex items-center gap-6">
-                  <div class="w-20 h-20 rounded-lg overflow-hidden border-2 border-orange-500/20">
-                    <img :src="member.image" :alt="member.codename" class="w-full h-full object-cover" />
+            <div 
+              v-for="member in teamMembers"
+              :key="member.id"
+              class="w-full flex-shrink-0 px-4"
+            >
+              <div class="border border-orange-500/20 rounded-lg overflow-hidden backdrop-blur-sm hover:border-orange-500/40 transition-all duration-300">
+                <div class="p-6">
+                  <div class="flex items-center gap-6">
+                    <div class="w-20 h-20 rounded-lg overflow-hidden border-2 border-orange-500/20">
+                      <img :src="member.image" :alt="member.codename" class="w-full h-full object-cover" />
+                    </div>
+                    <div>
+                      <h3 class="font-mono text-xl text-orange-500">{{ member.name }}</h3>
+                      <p class="text-sm text-gray-400">{{ member.role }}</p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 class="font-mono text-xl text-orange-500">{{ member.name }}</h3>
-                    <p class="text-sm text-gray-400">{{ member.role }}</p>
+                  <p class="text-gray-400 mt-4 text-sm">
+                    {{ member.description }}
+                  </p>
+                  <div class="flex gap-4 mt-4">
+                    <a
+                      v-for="social in member.social"
+                      :key="social.name"
+                      :href="social.url"
+                      :title="social.name"
+                      class="text-gray-400 hover:text-orange-500 transition-colors p-2 rounded-lg hover:bg-orange-500/5"
+                    >
+                      <component :is="social.icon" class="h-4 w-4" />
+                    </a>
                   </div>
-                </div>
-                <p class="text-gray-400 mt-4 text-sm">
-                  {{ member.description }}
-                </p>
-                <div class="flex gap-4 mt-4">
-                  <a
-                    v-for="social in member.social"
-                    :key="social.name"
-                    :href="social.url"
-                    :title="social.name"
-                    class="text-gray-400 hover:text-orange-500 transition-colors p-2 rounded-lg hover:bg-orange-500/5"
-                  >
-                    <component :is="social.icon" class="h-4 w-4" />
-                  </a>
                 </div>
               </div>
             </div>
@@ -106,10 +107,11 @@
 
         <!-- Pagination Dots -->
         <div class="flex justify-center gap-2 mt-6">
-          <div
+          <button
             v-for="(_, index) in teamMembers"
             :key="index"
-            class="h-2 w-2 rounded-full transition-colors"
+            @click="goToSlide(index)"
+            class="h-2 w-2 rounded-full transition-colors focus:outline-none"
             :class="index === currentIndex ? 'bg-orange-500' : 'bg-orange-500/20'"
           />
         </div>
@@ -120,7 +122,7 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import {
   Users,
   Code,
@@ -154,24 +156,14 @@ export default {
     ChevronLeft,
     ChevronRight
   },
+
   setup() {
     const currentIndex = ref(0)
     const carouselRef = ref(null)
+    let touchStartX = 0
+    let touchEndX = 0
 
     const teamMembers = [
-      {
-        id: 1,
-        name: "CYNTHIA MILOSZ",
-        codename: "FUR_SEAL",
-        image: "Cynthia.png",
-        role: "Data Analytics / Marketing Intelligence",
-        social: [
-          { name: 'GitHub', url: 'https://github.com/Cynthiamilosz', icon: Github },
-          { name: 'Linkedin', url: 'https://www.linkedin.com/in/cynthia-milosz/', icon: Linkedin },
-          { name: 'Email', url: 'mailto:cynthia.milosz@gmail.com', icon: Mail }
-        ],
-        description: "Especialista en Data Analytics, Business Intelligence  y Marketing Intelligence, con experiencia en desarrollo Frontend."
-      },
       {
         id: 2,
         name: "NIKOLAS BARROSO",
@@ -183,6 +175,19 @@ export default {
           { name: 'Linkedin', url: 'https://www.linkedin.com/in/nikolas-hernan-barroso-ouharriet-2766bb197/', icon: Linkedin },
         ],
         description: "Desarrollo web y visualización de datos, con enfoque en la creación de interfaces intuitivas y análisis de datos visualmente impactantes."
+      },
+      {
+        id: 1,
+        name: "CYNTHIA MILOSZ",
+        codename: "FUR_SEAL",
+        image: "Cynthia.png",
+        role: "Data Analytics / Marketing Intelligence",
+        social: [
+          { name: 'GitHub', url: 'https://github.com/Cynthiamilosz', icon: Github },
+          { name: 'Linkedin', url: 'https://www.linkedin.com/in/cynthia-milosz/', icon: Linkedin },
+          { name: 'Email', url: 'mailto:cynthia.milosz@gmail.com', icon: Mail }
+        ],
+        description: "Especialista en Data Analytics, Business Intelligence y Machine Knowledge Integration, con sólida experiencia en desarrollo Front End."
       },
       {
         id: 3,
@@ -226,33 +231,76 @@ export default {
     ]
 
     const scrollToNext = () => {
-      if (carouselRef.value) {
-        const newIndex = Math.min(currentIndex.value + 1, teamMembers.length - 1)
-        currentIndex.value = newIndex
-        carouselRef.value.scrollTo({
-          left: newIndex * carouselRef.value.offsetWidth,
-          behavior: 'smooth'
-        })
+      if (currentIndex.value < teamMembers.length - 1) {
+        currentIndex.value++
       }
     }
 
     const scrollToPrev = () => {
-      if (carouselRef.value) {
-        const newIndex = Math.max(currentIndex.value - 1, 0)
-        currentIndex.value = newIndex
-        carouselRef.value.scrollTo({
-          left: newIndex * carouselRef.value.offsetWidth,
-          behavior: 'smooth'
-        })
+      if (currentIndex.value > 0) {
+        currentIndex.value--
       }
     }
+
+    const goToSlide = (index) => {
+      currentIndex.value = index
+    }
+
+    // Touch handlers
+    const handleTouchStart = (e) => {
+      touchStartX = e.touches[0].clientX
+    }
+
+    const handleTouchMove = (e) => {
+      touchEndX = e.touches[0].clientX
+    }
+
+    const handleTouchEnd   
+ = () => {
+      const diff = touchStartX - touchEndX
+      if (Math.abs(diff) > 50) { // Minimum swipe distance
+        if (diff > 0) {
+          scrollToNext()
+        } else {
+          scrollToPrev()
+        }
+      }
+    }
+
+    // Keyboard navigation
+    const handleKeydown = (e) => {
+      if (e.key === 'ArrowLeft') {
+        scrollToPrev()
+      } else if (e.key === 'ArrowRight') {
+        scrollToNext()
+      }
+    }
+
+    onMounted(() => {
+      if (carouselRef.value) {
+        carouselRef.value.addEventListener('touchstart', handleTouchStart)
+        carouselRef.value.addEventListener('touchmove', handleTouchMove)
+        carouselRef.value.addEventListener('touchend', handleTouchEnd)
+        window.addEventListener('keydown', handleKeydown)
+      }
+    })
+
+    onUnmounted(() => {
+      if (carouselRef.value) {
+        carouselRef.value.removeEventListener('touchstart', handleTouchStart)
+        carouselRef.value.removeEventListener('touchmove', handleTouchMove)
+        carouselRef.value.removeEventListener('touchend', handleTouchEnd)
+        window.removeEventListener('keydown', handleKeydown)
+      }
+    })
 
     return {
       currentIndex,
       carouselRef,
       teamMembers,
       scrollToNext,
-      scrollToPrev
+      scrollToPrev,
+      goToSlide
     }
   }
 }
