@@ -136,7 +136,8 @@ import {
   Linkedin,
   Mail,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  BriefcaseBusiness 
 } from 'lucide-vue-next'
 
 export default {
@@ -154,7 +155,8 @@ export default {
     Linkedin,
     Mail,
     ChevronLeft,
-    ChevronRight
+    ChevronRight,
+    BriefcaseBusiness 
   },
 
   setup() {
@@ -211,7 +213,8 @@ export default {
         social: [
           { name: 'GitHub', url: 'https://github.com/kobogithub', icon: Github },
           { name: 'Linkedin', url: 'https://www.linkedin.com/in/kobouharriet/', icon: Linkedin },
-          { name: 'Email', url: 'mailto:kobouharriet@gmail.com', icon: Mail }
+          { name: 'Email', url: 'mailto:kobouharriet@gmail.com', icon: Mail },
+          { name: 'Porfolio', url: 'https://kobouharriet.site/', icon: BriefcaseBusiness  }
         ],
         description: "Arquitecto de Soluciones experto en contenedores y cloud, con foco en arquitecturas escalables en ECS y Kubernetes."
       },
@@ -224,7 +227,8 @@ export default {
         social: [
           { name: 'GitHub', url: 'https://github.com/Ferjapolis', icon: Github },
           { name: 'Linkedin', url: 'https://www.linkedin.com/in/fernando-barroso-35331a169/', icon: Linkedin },
-          { name: 'Email', url: 'mailto:barroso.ouharriet@gmail.com', icon: Mail }
+          { name: 'Email', url: 'mailto:barroso.ouharriet@gmail.com', icon: Mail },
+          { name: 'Porfolio', url: 'https://barroso-ouharriet.netlify.app/', icon: BriefcaseBusiness  }
         ],
         description: "Desarrollador Python con experiencia en análisis y visualización de datos, desarrollo fullstack, gestión en AWS y GCP."
       }
