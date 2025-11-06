@@ -11,8 +11,7 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro",
-    "postinstall": "npm rebuild"
+    "astro": "astro"
   },
   "dependencies": {
     "@astrojs/db": "^0.14.2",

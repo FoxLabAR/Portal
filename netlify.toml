@@ -1,9 +1,10 @@
 [build]
-  command = "rm -rf node_modules package-lock.json && npm install && npm run build"
+  command = "npm ci && npm run build"
   publish = "dist"
 
 [build.environment]
   NODE_VERSION = "20.11.0"
+  NPM_FLAGS = "--legacy-peer-deps"
 
 # IMPORTANTE: Variables de entorno que debes configurar en Netlify UI:
 # Site settings > Environment variables > Add a variable
