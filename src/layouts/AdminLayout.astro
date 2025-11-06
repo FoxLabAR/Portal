@@ -1,0 +1,82 @@
+---
+import { getCurrentUser } from '../lib/supabase';
+
+// Obtener información del usuario en el servidor
+const user = await getCurrentUser();
+const userEmail = user?.email || 'Unknown';
+---
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FOXLAB Admin</title>
+</head>
+<body class="bg-zinc-950">
+  <div class="min-h-screen">
+    <!-- Top Navigation Bar -->
+    <nav class="bg-black border-b border-orange-500/20">
+      <div class="container mx-auto px-4">
+        <div class="flex items-center justify-between h-16">
+          <!-- Logo y Título -->
+          <div class="flex items-center gap-4">
+            <img src="/logo_foxlab.svg" alt="FOXLAB" class="w-10 h-10" />
+            <div>
+              <h1 class="text-orange-500 font-mono text-lg font-bold">
+                FOXLAB ADMIN
+              </h1>
+              <p class="text-gray-600 font-mono text-xs">Control Panel</p>
+            </div>
+          </div>
+
+          <!-- User Info y Logout -->
+          <div class="flex items-center gap-4">
+            <div class="text-right hidden md:block">
+              <p class="text-gray-300 font-mono text-sm">{userEmail}</p>
+              <p class="text-orange-500/60 font-mono text-xs">Administrator</p>
+            </div>
+            <button
+              id="logout-btn"
+              class="flex items-center gap-2 px-4 py-2 bg-orange-500/10 hover:bg-orange-500/20 border border-orange-500/50 text-orange-500 font-mono text-sm rounded transition-colors"
+            >
+              <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                <polyline points="16 17 21 12 16 7"></polyline>
+                <line x1="21" y1="12" x2="9" y2="12"></line>
+              </svg>
+              <span class="hidden md:inline">LOGOUT</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <div class="container mx-auto px-4 py-8">
+      <slot />
+    </div>
+  </div>
+
+  <script>
+    // Manejar logout
+    document.getElementById('logout-btn')?.addEventListener('click', async () => {
+      try {
+        const { signOut } = await import('../lib/supabase');
+        await signOut();
+        window.location.href = '/';
+      } catch (error) {
+        console.error('[ADMIN] Error al cerrar sesión:', error);
+        alert('Error al cerrar sesión');
+      }
+    });
+  </script>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</body>
+</html>

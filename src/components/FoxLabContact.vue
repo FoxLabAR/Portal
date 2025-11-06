@@ -106,6 +106,7 @@
 
 <script setup>
 import { ref, reactive, onMounted, onUnmounted } from 'vue';
+import { createContact } from '../lib/supabase';
 
 const contactSection = ref(null);
 const isVisible = ref(false);
@@ -194,19 +195,21 @@ const startCountdown = () => {
 const handleSubmit = async () => {
   isSubmitting.value = true;
   try {
-    // Enviar datos a Google Sheets
-    const response = await fetch('https://script.google.com/macros/s/AKfycbzu6RkbOd-xIIBLafHC4dXKnxOUZ5nv4OL7dJJZYlpzN_I7V6TXysV9JN4zkmXWcU8Xpw/exec', {
-      method: 'POST',
-      body: JSON.stringify(formData),
-      mode: 'no-cors',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+    // Guardar en Supabase
+    await createContact({
+      codename: formData.codename,
+      email: formData.email,
+      message: formData.message,
+      user_agent: navigator.userAgent,
+      status: 'NEW'
     });
-    
+
     isHacking.value = true;
     isHacked.value = false;
     startEncryption();
+  } catch (error) {
+    console.error('Error al enviar contacto:', error);
+    // Opcional: mostrar mensaje de error al usuario
   } finally {
     isSubmitting.value = false;
   }

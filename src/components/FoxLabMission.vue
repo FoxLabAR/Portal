@@ -83,7 +83,7 @@
         </div>
 
         <!-- Enhanced Project Details -->
-        <div v-if="selectedMission" class="relative border-l-2 border-orange-700/20 pl-6" :class="{ 'animate-fade-in': animate }">
+        <div v-if="selectedMission" class="relative border-l-2 border-orange-700/20 pl-6">
           <div class="absolute -top-2 -left-4 pl-8 text-orange-500/20 text-xs tracking-wider">
             PROJECT DETAILS
           </div>
@@ -239,6 +239,7 @@ import {
   Github,
   ExternalLink
 } from 'lucide-vue-next'
+import { getAllProjects } from '../lib/supabase'
 
 export default {
   name: 'ProjectPortfolio',
@@ -259,77 +260,8 @@ export default {
   },
   setup() {
     const selectedMission = ref(null)
-    const missions = ref([
-      {
-        id: 'MSN_003',
-        title: 'Ferreteando - Ordenando tus ventas en dos clicks',
-        type: 'APP',
-        image: "628_1x_shots_so.webp",
-        description: 'Simplifica la gestión de ventas y presupuestos en ferreterías y pequeños comercios, permitiendo actualizar precios en tiempo real y generar presupuestos rápidamente.',
-        objectives: [
-          'Actualización de precios en tiempo real',
-          'Generación rápida de presupuestos',
-          'Optimización del flujo de trabajo',
-          'Interfaz intuitiva'
-        ],
-        skills: ['HTML', 'CSS', 'Vuetify', 'Vue', 'Python'],
-        status: 'COMPLETED',
-        elapsedTime: '1400:00',
-        repository: null,
-        demo: null
-      },
-      {
-        id: 'MSN_004',
-        title: 'PoroIA - ML para League of Legends',
-        type: 'DATA',
-        image: "LoL.webp",
-        description: 'Análisis de partidas clasificatorias de League of Legends en nivel Diamante, enfocándose en los primeros 10 minutos de juego.',
-        objectives: [
-          'Análisis de 10,000 partidas de alto nivel',
-          'Optimización de rendimiento y estrategias',
-          'Visualización de datos con Plotly'
-        ],
-        skills: ['Python', 'Plotly', 'ML'],
-        status: 'COMPLETED',
-        elapsedTime: '960:00',
-        repository: 'https://github.com/Ferjapolis/Coderhouser-DS-TP0002',
-        demo: 'https://ferjapolis.github.io/Coderhouser-DS-TP0002/Resumen.html'
-      },
-      {
-        id: 'MSN_005',
-        title: 'Sistema de Vivero Automatizado con Raspberry Pi',
-        type: 'APP',
-        image: "342shots_so.webp",
-        description: 'Automatización del riego y monitoreo de un vivero con sensores de humedad, temperatura, presión y pH, gestionado desde una web en Flask.',
-        objectives: [
-          'Automatización del riego',
-          'Monitoreo de condiciones ambientales del vivero',
-          'Registro de datos para análisis predictivos',
-          'Sistema gestionado vía web'
-        ],
-        skills: ['Python', 'Plotly', 'RPIO'],
-        status: 'COMPLETED',
-        elapsedTime: '1280:00',
-        repository: null,
-        demo: null
-      },
-      {
-        id: 'MSN_006',
-        title: 'Generador de Metadata a partir de tablas Excel',
-        type: 'DATA',
-        description: 'Lectura de archivos Excel para procesar datos y generar un archivo de salida en formato Parquet con información sobre las relaciones de datos entre las tablas.',
-        objectives: [
-          'Lectura automatizada de archivos Excel',
-          'Procesamiento de datos de múltiples hojas',
-          'Generación de archivo Parquet de salida'
-        ],
-        skills: ['Python'],
-        status: 'COMPLETED',
-        elapsedTime: '0080:00',
-        repository: 'https://github.com/Ferjapolis/Metadata_creator',
-        demo: null
-      }
-    ])
+    const missions = ref([])
+    const isLoading = ref(true)
 
     // Add project filters
     const projectFilters = [
@@ -353,8 +285,25 @@ export default {
       selectedMission.value = mission
     }
 
-    onMounted(() => {
-      selectedMission.value = missions.value[0]
+    onMounted(async () => {
+      try {
+        // Cargar proyectos desde Supabase
+        const projects = await getAllProjects()
+
+        // Mapear los nombres de campos de la BD a los usados en el componente
+        missions.value = projects.map(project => ({
+          ...project,
+          elapsedTime: project.elapsed_time
+        }))
+
+        if (missions.value.length > 0) {
+          selectedMission.value = missions.value[0]
+        }
+      } catch (error) {
+        console.error('Error al cargar proyectos:', error)
+      } finally {
+        isLoading.value = false
+      }
     })
 
     // Filter function
@@ -392,6 +341,7 @@ export default {
     return {
       selectedMission,
       missions,
+      isLoading,
       projectFilters,
       activeFilter,
       filteredMissions,

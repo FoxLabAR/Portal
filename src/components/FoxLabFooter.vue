@@ -66,6 +66,16 @@
               <Signal class="h-3 w-3" />
               FREQUENCY: 140.85
             </li>
+            <li>
+              <button
+                @click="openLoginModal"
+                class="flex items-center gap-2 text-gray-600 hover:text-orange-500 font-mono text-xs transition-colors group mt-2 opacity-50 hover:opacity-100"
+                title="Admin Access"
+              >
+                <Lock class="h-3 w-3 group-hover:rotate-12 transition-transform" />
+                [SYS_ACCESS]
+              </button>
+            </li>
           </ul>
           <!-- Social Links -->
           <div class="flex gap-4 pt-4">
@@ -86,7 +96,7 @@
           <div class="flex items-center gap-3">
             <div class="h-2 w-2 bg-orange-500/50 rounded-full animate-pulse"></div>
             <p class="text-gray-500 font-mono text-xs">
-              [ACCESS_ID: {{ currentYear }}-FOX-{{ generateAccessCode() }}]
+              [ACCESS_ID: {{ currentYear }}-FOX-{{ accessCode }}]
             </p>
           </div>
           
@@ -117,6 +127,8 @@ import {
   Mail
 } from 'lucide-vue-next'
 
+const emit = defineEmits(['open-login'])
+
 // Navigation Links
 const navigationLinks = [
   { href: '#intel', label: 'INTEL' },
@@ -134,6 +146,7 @@ const socialLinks = [
 const currentYear = new Date().getFullYear()
 const uptimeHours = ref(0)
 const memoryUsage = ref(0)
+const accessCode = ref('XXXXX')
 
 // Methods
 const generateAccessCode = () => {
@@ -143,6 +156,11 @@ const generateAccessCode = () => {
 const updateSystemMetrics = () => {
   uptimeHours.value = Math.floor(Math.random() * 1000)
   memoryUsage.value = Math.floor(Math.random() * 20) + 80 // 80-100%
+  accessCode.value = generateAccessCode()
+}
+
+const openLoginModal = () => {
+  emit('open-login')
 }
 
 // Lifecycle

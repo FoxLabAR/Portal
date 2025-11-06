@@ -1,5 +1,7 @@
 # build output
 dist/
+.claude/
+docs/
 
 # generated types
 .astro/

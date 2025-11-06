@@ -1,0 +1,15 @@
+---
+import Layout from '../layouts/AdminLayout.astro';
+import AdminApp from '../components/AdminApp.vue';
+---
+
+<Layout title="FOXLAB Admin">
+  <AdminApp client:only="vue" />
+</Layout>
+
+<style>
+  /* Asegurar que el fondo sea negro */
+  body {
+    background-color: #000;
+  }
+</style>

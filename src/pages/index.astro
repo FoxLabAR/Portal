@@ -6,7 +6,7 @@ import Team from '../components/FoxLabTeam.vue';
 import Header from '../components/FoxLabHeader.vue';
 import Mission from '../components/FoxLabMission.vue';
 import Contact from '../components/FoxLabContact.vue';
-import Footer from '../components/FoxLabFooter.vue';
+import PortalApp from '../components/PortalApp.vue';
 ---
 
 <Layout title="FOXLAB Devs" description="Consultora tecnológica especializada en desarrollo integral de software e inteligencia de datos">
@@ -17,7 +17,7 @@ import Footer from '../components/FoxLabFooter.vue';
 		<Mission id="missions" client:load />
 		<Team id="operatives" client:load	/>
 		<Contact id="contact" client:load />
-		<Footer />
+		<PortalApp client:only="vue" />
 	</main>
 </Layout>
 

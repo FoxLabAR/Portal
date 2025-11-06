@@ -12,39 +12,48 @@
         </h2>
       </div>
 
-      <!-- Desktop Grid (md and up) -->
-      <div class="hidden md:grid md:grid-cols-2 lg:grid-cols-5 gap-6">
-        <div v-for="member in teamMembers" :key="member.id" class="relative">
-          <div class="border border-orange-500/20 rounded-lg overflow-hidden backdrop-blur-sm hover:border-orange-500/40 transition-all duration-300">
-            <div class="p-4">
-              <div class="flex items-center gap-4">
-                <div class="w-16 h-16 rounded-lg overflow-hidden border-2 border-orange-500/20">
-                  <img :src="member.image" :alt="member.codename" class="w-full h-full object-cover" />
+      <!-- Loading State -->
+      <div v-if="isLoading" class="flex justify-center items-center py-16">
+        <div class="text-orange-500 font-mono text-sm animate-pulse">
+          [LOADING OPERATIVES...]
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div v-else>
+        <!-- Desktop Grid (md and up) -->
+        <div class="hidden md:grid md:grid-cols-2 lg:grid-cols-5 gap-6">
+          <div v-for="member in teamMembers" :key="member.id" class="relative">
+            <div class="border border-orange-500/20 rounded-lg overflow-hidden backdrop-blur-sm hover:border-orange-500/40 transition-all duration-300">
+              <div class="p-4">
+                <div class="flex items-center gap-4">
+                  <div class="w-16 h-16 rounded-lg overflow-hidden border-2 border-orange-500/20">
+                    <img :src="member.image" :alt="member.codename" class="w-full h-full object-cover" />
+                  </div>
+                  <div>
+                    <h3 class="font-mono text-lg text-orange-500">{{ member.name }}</h3>
+                    <p class="text-sm text-gray-400">{{ member.role }}</p>
+                  </div>
                 </div>
-                <div>
-                  <h3 class="font-mono text-lg text-orange-500">{{ member.name }}</h3>
-                  <p class="text-sm text-gray-400">{{ member.role }}</p>
+                <p class="text-sm text-gray-600 pt-2">
+                  {{ member.description }}
+                </p>
+                <div class="flex gap-4 pt-4">
+                  <a v-for="social in member.social"
+                    :key="social.name"
+                    :href="social.url"
+                    :title="social.name"
+                    class="text-gray-400 hover:text-orange-500 transition-colors p-2 rounded-lg hover:bg-orange-500/5">
+                    <component :is="social.icon" class="h-4 w-4" />
+                  </a>
                 </div>
-              </div>
-              <p class="text-sm text-gray-600 pt-2">
-                {{ member.description }}
-              </p>
-              <div class="flex gap-4 pt-4">
-                <a v-for="social in member.social" 
-                  :key="social.name"
-                  :href="social.url"
-                  :title="social.name"
-                  class="text-gray-400 hover:text-orange-500 transition-colors p-2 rounded-lg hover:bg-orange-500/5">
-                  <component :is="social.icon" class="h-4 w-4" />
-                </a>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Mobile Carousel (sm and down) -->
-      <div class="md:hidden relative">
+        <!-- Mobile Carousel (sm and down) -->
+        <div class="md:hidden relative">
         <!-- Navigation Buttons -->
         <button 
           @click="scrollToPrev"
@@ -115,8 +124,8 @@
             :class="index === currentIndex ? 'bg-orange-500' : 'bg-orange-500/20'"
           />
         </div>
+        </div>
       </div>
-
     </div>
   </div>
 </template>
@@ -162,77 +171,73 @@ export default {
   setup() {
     const currentIndex = ref(0)
     const carouselRef = ref(null)
+    const teamMembers = ref([])
+    const isLoading = ref(true)
     let touchStartX = 0
     let touchEndX = 0
 
-    const teamMembers = [
-      {
-        id: 2,
-        name: "NIKOLAS BARROSO",
-        codename: "PHANTOM_CODER",
-        image: "Nikolas.png",
-        role: "Frontend Developer",
-        social: [
-          { name: 'GitHub', url: 'https://github.com/Nikolash4480', icon: Github },
-          { name: 'Linkedin', url: 'https://www.linkedin.com/in/nikolas-hernan-barroso-ouharriet-2766bb197/', icon: Linkedin },
-        ],
-        description: "Desarrollo web y visualización de datos, con enfoque en la creación de interfaces intuitivas y análisis de datos visualmente impactantes."
-      },
-      {
-        id: 1,
-        name: "CYNTHIA MILOSZ",
-        codename: "FUR_SEAL",
-        image: "Cynthia.png",
-        role: "Data Analytics / Marketing Intelligence",
-        social: [
-          { name: 'GitHub', url: 'https://github.com/Cynthiamilosz', icon: Github },
-          { name: 'Linkedin', url: 'https://www.linkedin.com/in/cynthia-milosz/', icon: Linkedin },
-          { name: 'Email', url: 'mailto:cynthia.milosz@gmail.com', icon: Mail }
-        ],
-        description: "Especialista en Data Analytics, Business Intelligence y Machine Knowledge Integration, con sólida experiencia en desarrollo Front End."
-      },
-      {
-        id: 3,
-        name: "GABRIEL VALDEZ",
-        codename: "BOBWHITE",
-        image: "Gabriel.png",
-        role: "Data Analytics",
-        social: [
-          { name: 'GitHub', url: 'https://github.com/GabooV2', icon: Github },
-          { name: 'Linkedin', url: 'https://www.linkedin.com/in/gabdez/', icon: Linkedin },
-          { name: 'Email', url: 'mailto:leirbag.valdez@gmail.com', icon: Mail }
-        ],
-        description: "Analista de Datos y Consultor BI, especializado en visualización de datos, con experiencia en Python, SQL y Google Cloud Platform."
-      },
-      {
-        id: 4,
-        name: "KEVIN BARROSO",
-        codename: "CYBER_SENTINEL",
-        image: "Kevin.png",
-        role: "Cloud Arq / Intel Specialist",
-        social: [
-          { name: 'GitHub', url: 'https://github.com/kobogithub', icon: Github },
-          { name: 'Linkedin', url: 'https://www.linkedin.com/in/kobouharriet/', icon: Linkedin },
-          { name: 'Email', url: 'mailto:kobouharriet@gmail.com', icon: Mail },
-          { name: 'Porfolio', url: 'https://kobouharriet.site/', icon: BriefcaseBusiness  }
-        ],
-        description: "Arquitecto de Soluciones experto en contenedores y cloud, con foco en arquitecturas escalables en ECS y Kubernetes."
-      },
-      {
-        id: 5,
-        name: "FERNANDO BARROSO",
-        codename: "CYBER_SENTINEL",
-        image: "Fernando.png",
-        role: "Data Scientist / Fullstack / Analysis",
-        social: [
-          { name: 'GitHub', url: 'https://github.com/Ferjapolis', icon: Github },
-          { name: 'Linkedin', url: 'https://www.linkedin.com/in/fernando-barroso-35331a169/', icon: Linkedin },
-          { name: 'Email', url: 'mailto:barroso.ouharriet@gmail.com', icon: Mail },
-          { name: 'Porfolio', url: 'https://barroso-ouharriet.netlify.app/', icon: BriefcaseBusiness  }
-        ],
-        description: "Desarrollador Python con experiencia en análisis y visualización de datos, desarrollo fullstack, gestión en AWS y GCP."
+    // Importar funciones de Supabase
+    const loadTeamMembers = async () => {
+      try {
+        console.log('[TEAM] Cargando miembros del equipo desde Supabase...')
+
+        // Importar dinámicamente para evitar problemas de SSR
+        const { getActiveTeamMembers, getAvatarUrl } = await import('../lib/supabase')
+
+        console.log('[TEAM] Funciones importadas correctamente')
+
+        const members = await getActiveTeamMembers()
+        console.log('[TEAM] Miembros cargados:', members.length)
+        console.log('[TEAM] Datos de miembros:', members)
+
+        if (!members || members.length === 0) {
+          console.warn('[TEAM] No se encontraron miembros en la base de datos')
+          isLoading.value = false
+          return
+        }
+
+        // Mapear datos de Supabase al formato del componente
+        teamMembers.value = members.map(member => {
+          const social = []
+
+          // Agregar redes sociales si existen
+          if (member.github_url) {
+            social.push({ name: 'GitHub', url: member.github_url, icon: Github })
+          }
+          if (member.linkedin_url) {
+            social.push({ name: 'LinkedIn', url: member.linkedin_url, icon: Linkedin })
+          }
+          if (member.email) {
+            social.push({ name: 'Email', url: `mailto:${member.email}`, icon: Mail })
+          }
+          if (member.twitter_url) {
+            social.push({ name: 'Twitter', url: member.twitter_url, icon: BriefcaseBusiness })
+          }
+
+          const mappedMember = {
+            id: member.id,
+            name: member.name,
+            codename: member.name.split(' ').join('_').toUpperCase(),
+            image: getAvatarUrl(member.avatar_url || ''),
+            role: member.role,
+            social,
+            description: member.bio || ''
+          }
+
+          console.log('[TEAM] Miembro mapeado:', mappedMember.name, 'imagen:', mappedMember.image)
+          return mappedMember
+        })
+
+        console.log('[TEAM] Total de miembros mapeados:', teamMembers.value.length)
+        isLoading.value = false
+      } catch (error) {
+        console.error('[TEAM] Error al cargar miembros:', error)
+        console.error('[TEAM] Stack trace:', error.stack)
+        isLoading.value = false
+        // En caso de error, usar datos de fallback vacíos
+        teamMembers.value = []
       }
-    ]
+    }
 
     const scrollToNext = () => {
       if (currentIndex.value < teamMembers.length - 1) {
@@ -281,6 +286,9 @@ export default {
     }
 
     onMounted(() => {
+      // Cargar miembros del equipo desde Supabase
+      loadTeamMembers()
+
       if (carouselRef.value) {
         carouselRef.value.addEventListener('touchstart', handleTouchStart)
         carouselRef.value.addEventListener('touchmove', handleTouchMove)
@@ -302,6 +310,7 @@ export default {
       currentIndex,
       carouselRef,
       teamMembers,
+      isLoading,
       scrollToNext,
       scrollToPrev,
       goToSlide
