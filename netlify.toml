@@ -1,0 +1,12 @@
+[build]
+  command = "rm -rf node_modules package-lock.json && npm install && npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20.11.0"
+
+# IMPORTANTE: Variables de entorno que debes configurar en Netlify UI:
+# Site settings > Environment variables > Add a variable
+#
+# PUBLIC_SUPABASE_URL = tu_url_de_supabase
+# PUBLIC_SUPABASE_ANON_KEY = tu_anon_key_de_supabase

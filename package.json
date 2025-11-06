@@ -2,12 +2,17 @@
   "name": "foxlabweb",
   "type": "module",
   "version": "0.0.1",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "postinstall": "npm rebuild"
   },
   "dependencies": {
     "@astrojs/db": "^0.14.2",
